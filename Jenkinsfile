@@ -1,10 +1,10 @@
 pipeline {
 	agent any
 	stages{
-			stage('Clean and Test'){
+			stage('Clean and Install'){
 				steps{
 					bat "mvn clean"
-                    bat "mvn test"
+					bat "mvn install"
 				}				
 			}
             stage('Sonar Analyse'){
