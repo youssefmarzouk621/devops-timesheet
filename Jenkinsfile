@@ -27,6 +27,18 @@ pipeline {
                         {dockerImage.push()}
 					}
 				}
-			}	
+			}
+			
+            stage('Sonar Analyse'){
+				steps{
+                    bat "mvn sonar:sonar"
+                  }
+            }
+			stage('Deploy'){
+				steps{
+					bat "mvn deploy"
+				}				
+			}
+			
 		} 
 }
