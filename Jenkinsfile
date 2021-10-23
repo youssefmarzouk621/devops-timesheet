@@ -7,11 +7,10 @@ pipeline {
     }
 	stages{
 			stage('Clean Package'){
-					steps{
-						bat "mvn clean package"
-					}				
-				}
-			
+				steps{
+					bat "mvn clean package"
+				}				
+			}
 
 			stage('Building Image'){
 				steps{
@@ -29,16 +28,5 @@ pipeline {
 					}
 				}
 			}	
-            /*stage('Sonar Analyse'){
-				steps{
-                    bat "mvn sonar:sonar"
-                  }
-            }
-			stage('Deploy'){
-				steps{
-					bat "mvn deploy"
-				}				
-			}*/
 		} 
-
 }
