@@ -1,13 +1,35 @@
 pipeline {
 	agent any
+	environment { 
+        registry = "youssefmarzouk/devops-timesheet" 
+        registryCredential = 'dockerhub'
+        dockerImage = '' 
+    }
 	stages{
-			stage('Clean and Install'){
+			stage('Clean Package'){
+					steps{
+						bat "mvn clean package"
+					}				
+				}
+			
+
+			stage('Building Image'){
 				steps{
-					bat "mvn clean"
-					bat "mvn install"
+					script{
+						dockerImage = docker.build registry + ":$BUILD_NUMBER"
+					}
 				}				
 			}
-            stage('Sonar Analyse'){
+
+			stage('Deploy Image'){
+				steps{
+					script{
+						docker.withRegistry( '', registryCredential ) 
+                        {dockerImage.push()}
+					}
+				}
+			}	
+            /*stage('Sonar Analyse'){
 				steps{
                     bat "mvn sonar:sonar"
                   }
@@ -16,7 +38,7 @@ pipeline {
 				steps{
 					bat "mvn deploy"
 				}				
-			}
+			}*/
 		} 
 
 }
