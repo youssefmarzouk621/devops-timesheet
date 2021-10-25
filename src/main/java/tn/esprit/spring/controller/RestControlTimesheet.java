@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,12 +36,12 @@ public class RestControlTimesheet {
 	IDepartementService idepartementService;
 	
 	// http://localhost:8081/SpringMVC/servlet/ajouterMission
-	@PostMapping("/ajouterMission")
+	@PostMapping(value = "/ajouterMission", produces = "application/json")
 	@ResponseBody
-	public int ajouterMission(@RequestBody MissionDTO missionDTO) {
+	public ResponseEntity<Integer> ajouterMission(HttpServletResponse response,@RequestBody MissionDTO missionDTO) {
 		Mission persistentMission = mapIntoPersistentMission(missionDTO);
 		itimesheetservice.ajouterMission(persistentMission);
-		return persistentMission.getId();
+		return ResponseEntity.ok(persistentMission.getId());
 	}
 	
 	public Mission mapIntoPersistentMission(MissionDTO missionDTO) {
