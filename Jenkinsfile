@@ -12,23 +12,6 @@ pipeline {
 				}				
 			}
 
-			stage('Building Image'){
-				steps{
-					script{
-						dockerImage = docker.build registry + ":$BUILD_NUMBER"
-					}
-				}				
-			}
-
-			stage('Deploy Image'){
-				steps{
-					script{
-						docker.withRegistry( '', registryCredential ) 
-                        {dockerImage.push()}
-					}
-				}
-			}
-			
             stage('Sonar Analyse'){
 				steps{
                     bat "mvn sonar:sonar"
@@ -39,6 +22,21 @@ pipeline {
 					bat "mvn deploy"
 				}				
 			}
-			
+
+			stage('Building Image'){
+				steps{
+					script{
+						dockerImage = docker.build registry + ":$BUILD_NUMBER"
+					}
+				}				
+			}
+			stage('Deploy Image'){
+				steps{
+					script{
+						docker.withRegistry( '', registryCredential ) 
+                        {dockerImage.push()}
+					}
+				}
+			}			
 		} 
 }
