@@ -34,7 +34,7 @@ public class ControllerEntrepriseImpl{
 	}
 	public Entreprise getEntrepriseById(int entrepriseId) {
 
-		return ientrepriseservice.getEntrepriseById(1);
+		return ientrepriseservice.getEntrepriseById(entrepriseId);
 	}
 	
 	public int ajouterDepartement(Departement dep) {
