@@ -40,7 +40,8 @@ public class Departement implements Serializable {
 		super();
 	}
 	
-	public Departement(String name) {
+	public Departement(int id,String name) {
+		this.id=id;
 		this.name = name;
 	}
 	
@@ -82,6 +83,11 @@ public class Departement implements Serializable {
 
 	public void setEntreprise(Entreprise entreprise) {
 		this.entreprise = entreprise;
+	}
+
+	@Override
+	public String toString() {
+		return "[id=" + id + ", name=" + name + "]";
 	}
 	
 	

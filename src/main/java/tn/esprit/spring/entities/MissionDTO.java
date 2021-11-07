@@ -13,6 +13,13 @@ public class MissionDTO{
 	
 	private  List<Timesheet> timesheetsDTO;
 
+	
+
+	public MissionDTO(int idDTO,String nameDTO, String descriptionDTO) {
+		this.idDTO = idDTO;
+		this.nameDTO = nameDTO;
+		this.descriptionDTO = descriptionDTO;
+	}
 
 	public int getIdDTO() {
 		return idDTO;

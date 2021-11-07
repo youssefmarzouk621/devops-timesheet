@@ -8,7 +8,7 @@ pipeline {
 	stages{
 			stage('Clean Package'){
 				steps{
-					bat "mvn clean package"
+					bat "mvn clean install"
 				}				
 			}
 			stage('Test'){
@@ -21,13 +21,17 @@ pipeline {
                     bat "mvn sonar:sonar"
                   }
             }
+            stage('packaging'){
+				steps{
+                    bat "mvn package"
+                  }
+            }
 			stage('Deploy'){
 				steps{
 					bat "mvn deploy"
 				}				
 			}
-
-			stage('Building Image'){
+			/*stage('Building Image'){
 				steps{
 					script{
 						dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -41,6 +45,6 @@ pipeline {
                         {dockerImage.push()}
 					}
 				}
-			}			
+			}*/			
 		} 
 }

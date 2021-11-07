@@ -38,28 +38,37 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		missionRepository.save(mission);
 		return mission.getId();
 	}
+	
+
     
-	public void affecterMissionADepartement(int missionId, int depId) {
+	public boolean affecterMissionADepartement(int missionId, int depId) {
 		Optional<Mission> missionOptinal = missionRepository.findById(missionId);
 		Optional<Departement> depOptinal = deptRepoistory.findById(depId);
-		
+		log.info("In affecterMissionADepartement");
 
 		
 		if(depOptinal.isPresent()) {
 			Departement dep = depOptinal.get();
-			
+			log.info("Departement is Present :"+dep);
 			if(missionOptinal.isPresent()) {
 				Mission mission = missionOptinal.get();
+				log.info("Mission is Present : "+mission);
 				mission.setDepartement(dep);
 				missionRepository.save(mission);
+				log.info("departement mission a departement");
+				return true;
 			}
+			log.info("Mission not found");
+			return false;
 		}
+		log.info("Departement not found");
+		return false;
 		
 
 
 	}
 
-	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
+	public boolean ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
 		timesheetPK.setDateFin(dateFin);
@@ -70,7 +79,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); //par defaut non valide
 		timesheetRepository.save(timesheet);
-		
+		return true;
 	}
 
 	
@@ -136,10 +145,17 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 	}
+	
+	public List<Mission> findAllMissions() {
+		return timesheetRepository.findAllMissions();
+	}
 
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
 		return timesheetRepository.getAllEmployeByMission(missionId);
 	}
+
+
+
 
 }

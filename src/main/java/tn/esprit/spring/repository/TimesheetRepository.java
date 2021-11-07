@@ -19,11 +19,15 @@ public interface TimesheetRepository extends CrudRepository<Timesheet, Integer> 
 	@Query("select DISTINCT m from Mission m join m.timesheets t join t.employe e where e.id=:employeId")
 	public List<Mission> findAllMissionByEmployeJPQL(@Param("employeId")int employeId);
 	
+	@Query("select m from Mission m")
+	public List<Mission> findAllMissions();
+	
 	@Query("select DISTINCT e from Employe e "
 				+ "join e.timesheets t "
 				+ "join t.mission m "
 				+ "where m.id=:misId")
 	public List<Employe> getAllEmployeByMission(@Param("misId")int missionId);
+	
 	
 	
 	@Query("Select t from Timesheet t "

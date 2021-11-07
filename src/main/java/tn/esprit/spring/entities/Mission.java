@@ -38,7 +38,11 @@ public class Mission implements Serializable {
 		this.description = description;
 	}
 	
-
+	public Mission(int id,String name, String description){
+		this.id=id;
+		this.name = name;
+		this.description = description;
+	}
 	public int getId() {
 		return id;
 	}
@@ -77,6 +81,11 @@ public class Mission implements Serializable {
 
 	public void setTimesheets(List<Timesheet> timesheets) {
 		this.timesheets = timesheets;
+	}
+
+	@Override
+	public String toString() {
+		return "[id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
 	
 	
