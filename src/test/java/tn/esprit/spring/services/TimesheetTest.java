@@ -50,12 +50,11 @@ public class TimesheetTest {
 	@Autowired
 	private IEntrepriseService iEntrepriseService;
 
-	@Autowired
-	private IDepartementService iDepartementService;
 
 
 	
 	ObjectWriter objectWriter;
+
 	Entreprise esprit;
 	Departement departement;
 	@Before
@@ -63,12 +62,8 @@ public class TimesheetTest {
 		 this.mockMvc = webAppContextSetup(webApplicationContext).build();
 		 objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		 
-		 esprit = new Entreprise("ESPRIT","se former autrement");
-		 
-		 departement = new Departement("Recherche et develloppement ");
-		 departement.setEntreprise(esprit);
-		 
-		 
+		esprit = new Entreprise(1,"ESPRIT","se former autrement");
+		departement = new Departement(1,"Recherche et develloppement ");
 	}
 	
 	private static final Logger log = Logger.getLogger(TimesheetTest.class);
@@ -78,23 +73,73 @@ public class TimesheetTest {
 	@Order(1)
 	public void testAddEntreprise() throws Exception {
 		log.info("Testing add Entreprise");
-		int id = iEntrepriseService.ajouterEntreprise(esprit);
-		org.assertj.core.api.Assertions.assertThat(esprit.getId()).isEqualTo(id);
+		
+		Entreprise vermeg = new Entreprise("Vermeg","VERMEG est un groupe de logiciels international opérant sur plusieurs lignes de services B2B");
+		Entreprise persisted = iEntrepriseService.ajouterEntreprise(vermeg);
+		
+		String json = objectWriter.writeValueAsString(persisted);
+		log.info(json);
+		
+		org.assertj.core.api.Assertions.assertThat(vermeg.getName()).isEqualTo(persisted.getName());
+		org.assertj.core.api.Assertions.assertThat(vermeg.getRaisonSocial()).isEqualTo(persisted.getRaisonSocial());
+		
+
 		log.info("done Testing add Entreprise");
 	}
 	
-	
-	
-
-	
 	@Test
 	@Order(2)
+	public void testAddDepartement() throws Exception {
+		log.info("Testing add Departement");
+		
+		Departement dept = new Departement("Ressources Humaines ");
+		Departement persisted = iEntrepriseService.ajouterDepartement(dept);
+		
+		String json = objectWriter.writeValueAsString(persisted);
+		log.info(json);
+		
+		org.assertj.core.api.Assertions.assertThat(dept.getName()).isEqualTo(persisted.getName());
+		
+		log.info("done Testing add Departement");
+	}
+	
+	
+	@Test
+	@Order(3)
+	public void testAffecterDepartementAEntreprise() throws Exception {
+		log.info("Testing Affecter Departement a Entreprise");
+
+		
+		departement.setEntreprise(esprit);
+		
+		List<Departement> departements = esprit.getDepartements();
+		departements.add(departement);
+		esprit.setDepartements(departements);
+		
+		iEntrepriseService.affecterDepartementAEntreprise(departement.getId(),esprit.getId());
+		
+		org.assertj.core.api.Assertions.assertThat(departement.getEntreprise().getId()).isEqualTo(esprit.getId());
+		
+		log.info("done Testing Affecter Departement a Entreprise");
+	}
+	
+	
+	@Test
+	@Order(4)
 	public void testAddMission() throws Exception {
 		log.info("Testing add Mission");
 		Mission mission = new Mission("Mission", "Description");
 		Mission persisted = timesheetServiceImpl.ajouterMission(mission);
 		org.assertj.core.api.Assertions.assertThat(persisted.getId()).isEqualTo(mission.getId());
 		log.info("done Testing add Mission");
+		
+		
+		
+		log.info("Testing affecter mission a departement");
+		boolean isPersisted = timesheetServiceImpl.affecterMissionADepartement(persisted.getId(), departement.getId());
+		
+		org.assertj.core.api.Assertions.assertThat(isPersisted).isTrue();
+		log.info("done Testing affecter mission a departement");
 	}
 	
 	
