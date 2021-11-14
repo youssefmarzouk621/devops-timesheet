@@ -76,7 +76,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	@Transactional
 	public void deleteDepartementById(int depId) {
 		Optional<Departement> DepartementeManagedEntity1 = deptRepoistory.findById(depId);
-		Departement DepartementeManagedEntity = null;
+		Departement DepartementeManagedEntity = new Departement();
 		if (DepartementeManagedEntity1.isPresent()) {
 			DepartementeManagedEntity = DepartementeManagedEntity1.get();
 		}
