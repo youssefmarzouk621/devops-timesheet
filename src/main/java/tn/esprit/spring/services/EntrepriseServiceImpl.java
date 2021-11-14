@@ -50,7 +50,11 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
-		Entreprise entrepriseManagedEntity = entrepriseRepoistory.findById(entrepriseId).get();
+		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
+		Entreprise entrepriseManagedEntity = null;
+		if (entrepriseManagedEntity1.isPresent()) {
+			entrepriseManagedEntity = entrepriseManagedEntity1.get();
+		}
 		List<String> depNames = new ArrayList<>();
 		for(Departement dep : entrepriseManagedEntity.getDepartements()){
 			depNames.add(dep.getName());
@@ -61,17 +65,32 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	@Transactional
 	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());	
+		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
+		Entreprise entrepriseManagedEntity = null;
+		if (entrepriseManagedEntity1.isPresent()) {
+			entrepriseManagedEntity = entrepriseManagedEntity1.get();
+		}
+		entrepriseRepoistory.delete(entrepriseManagedEntity);	
 	}
 
 	@Transactional
 	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());	
+		Optional<Departement> DepartementeManagedEntity1 = deptRepoistory.findById(depId);
+		Departement DepartementeManagedEntity = null;
+		if (DepartementeManagedEntity1.isPresent()) {
+			DepartementeManagedEntity = DepartementeManagedEntity1.get();
+		}
+		deptRepoistory.delete(DepartementeManagedEntity);	
 	}
 
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
-		return entrepriseRepoistory.findById(entrepriseId).get();	
+		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
+		Entreprise entrepriseManagedEntity = null;
+		if (entrepriseManagedEntity1.isPresent()) {
+			entrepriseManagedEntity = entrepriseManagedEntity1.get();
+		}
+		return entrepriseManagedEntity;	
 	}
 
 }
