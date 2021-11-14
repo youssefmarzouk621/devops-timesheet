@@ -42,8 +42,13 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				if (entrepriseManagedEntity1.isPresent()) {
 					entrepriseManagedEntity = entrepriseManagedEntity1.get();
 				}
-				Departement depManagedEntity = deptRepoistory.findById(depId).get();
 				
+				Optional<Departement> DepartementeManagedEntity1 = deptRepoistory.findById(depId);
+				
+				Departement depManagedEntity = new Departement();
+				if (DepartementeManagedEntity1.isPresent()) {
+					depManagedEntity = DepartementeManagedEntity1.get();
+				}
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
 				deptRepoistory.save(depManagedEntity);
 		
