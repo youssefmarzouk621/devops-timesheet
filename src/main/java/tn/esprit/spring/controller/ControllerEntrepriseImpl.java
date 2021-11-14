@@ -38,7 +38,7 @@ public class ControllerEntrepriseImpl{
 	}
 	
 	public int ajouterDepartement(Departement dep) {
-		return ientrepriseservice.ajouterDepartement(dep);
+		return ientrepriseservice.ajouterDepartement(dep).getId();
 	}
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
