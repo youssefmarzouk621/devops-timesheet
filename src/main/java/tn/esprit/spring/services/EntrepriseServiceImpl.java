@@ -38,7 +38,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				//Rappel : la classe qui contient mappedBy represente le bout Slave
 				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
 				Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
-				Entreprise entrepriseManagedEntity = null;
+				Entreprise entrepriseManagedEntity = new Entreprise();;
 				if (entrepriseManagedEntity1.isPresent()) {
 					entrepriseManagedEntity = entrepriseManagedEntity1.get();
 				}
@@ -51,7 +51,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	
 	public List<String> getAllDepartementsNamesByEntreprise(int entrepriseId) {
 		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
-		Entreprise entrepriseManagedEntity = null;
+		Entreprise entrepriseManagedEntity = new Entreprise();
 		if (entrepriseManagedEntity1.isPresent()) {
 			entrepriseManagedEntity = entrepriseManagedEntity1.get();
 		}
@@ -66,7 +66,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	@Transactional
 	public void deleteEntrepriseById(int entrepriseId) {
 		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
-		Entreprise entrepriseManagedEntity = null;
+		Entreprise entrepriseManagedEntity = new Entreprise();
 		if (entrepriseManagedEntity1.isPresent()) {
 			entrepriseManagedEntity = entrepriseManagedEntity1.get();
 		}
@@ -86,7 +86,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
 		Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
-		Entreprise entrepriseManagedEntity = null;
+		Entreprise entrepriseManagedEntity = new Entreprise();
 		if (entrepriseManagedEntity1.isPresent()) {
 			entrepriseManagedEntity = entrepriseManagedEntity1.get();
 		}
