@@ -38,16 +38,16 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 				//Rappel : la classe qui contient mappedBy represente le bout Slave
 				//Rappel : Dans une relation oneToMany le mappedBy doit etre du cote one.
 				Optional<Entreprise> entrepriseManagedEntity1 = entrepriseRepoistory.findById(entrepriseId);
-				Entreprise entrepriseManagedEntity = new Entreprise();;
+				Entreprise entrepriseManagedEntity = new Entreprise();
 				if (entrepriseManagedEntity1.isPresent()) {
 					entrepriseManagedEntity = entrepriseManagedEntity1.get();
 				}
 				
-				Optional<Departement> DepartementeManagedEntity1 = deptRepoistory.findById(depId);
+				Optional<Departement> departementemanagedentity1 = deptRepoistory.findById(depId);
 				
 				Departement depManagedEntity = new Departement();
-				if (DepartementeManagedEntity1.isPresent()) {
-					depManagedEntity = DepartementeManagedEntity1.get();
+				if (departementemanagedentity1.isPresent()) {
+					depManagedEntity = departementemanagedentity1.get();
 				}
 				depManagedEntity.setEntreprise(entrepriseManagedEntity);
 				deptRepoistory.save(depManagedEntity);
@@ -80,12 +80,12 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	@Transactional
 	public void deleteDepartementById(int depId) {
-		Optional<Departement> DepartementeManagedEntity1 = deptRepoistory.findById(depId);
-		Departement DepartementeManagedEntity = new Departement();
-		if (DepartementeManagedEntity1.isPresent()) {
-			DepartementeManagedEntity = DepartementeManagedEntity1.get();
+		Optional<Departement> departementemanagedentity1 = deptRepoistory.findById(depId);
+		Departement departementemanagedentity = new Departement();
+		if (departementemanagedentity1.isPresent()) {
+			departementemanagedentity = departementemanagedentity1.get();
 		}
-		deptRepoistory.delete(DepartementeManagedEntity);	
+		deptRepoistory.delete(departementemanagedentity);	
 	}
 
 
