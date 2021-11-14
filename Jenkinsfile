@@ -11,7 +11,7 @@ pipeline {
 					bat "mvn clean package"
 				}				
 			}
-			           /*
+			           
             stage('Sonar Analyse'){
 				steps{
                     bat "mvn sonar:sonar"
@@ -23,7 +23,7 @@ pipeline {
 					bat "mvn deploy"
 				}				
 			}
-			*/
+			
 
 			stage('Building Image'){
 				steps{
