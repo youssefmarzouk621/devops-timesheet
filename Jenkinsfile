@@ -6,7 +6,7 @@ pipeline {
         dockerImage = '' 
     }
 	stages{
-			stage('Clean Package'){
+			stage('Clean Install'){
 				steps{
 					bat "mvn clean install"
 				}				
@@ -31,7 +31,7 @@ pipeline {
 					bat "mvn deploy"
 				}				
 			}
-			/*stage('Building Image'){
+			stage('Building Image'){
 				steps{
 					script{
 						dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -45,6 +45,6 @@ pipeline {
                         {dockerImage.push()}
 					}
 				}
-			}*/			
+			}	
 		} 
 }

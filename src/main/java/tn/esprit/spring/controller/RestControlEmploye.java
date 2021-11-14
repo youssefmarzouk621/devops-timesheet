@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entities.Contrat;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.EmployeDTO;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Mission;
+import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
@@ -33,15 +35,28 @@ public class RestControlEmploye {
 	ITimesheetService itimesheetservice;
 
 	
-	// http://localhost:8081/SpringMVC/servlet/ajouterEmployer
-	//{"id":1,"nom":"kallel", "prenom":"khaled", "email":"Khaled.kallel@ssiiconsulting.tn", "isActif":true, "role":"INGENIEUR"}
-	  
+	// http://localhost:8081/SpringMVC/servlet/ajouterEmployer	  
 	@PostMapping("/ajouterEmployer")
 	@ResponseBody
-	public Employe ajouterEmploye(@RequestBody Employe employe)
+	public Employe ajouterEmploye(@RequestBody EmployeDTO employeDTO)
 	{
-		iemployeservice.addOrUpdateEmploye(employe);
-		return employe;
+		Employe persistentEmploye = mapIntoPersistentEmploye(employeDTO);
+		
+		iemployeservice.addOrUpdateEmploye(persistentEmploye);
+		return persistentEmploye;
+	}
+	
+	public Employe mapIntoPersistentEmploye(EmployeDTO employeDTO) {
+		Employe persistentEmploye = new Employe();
+
+		persistentEmploye.setActif(employeDTO.isActifDTO());
+		persistentEmploye.setPrenom(employeDTO.getPrenomDTO());
+		persistentEmploye.setNom(employeDTO.getNomDTO());
+		persistentEmploye.setEmail(employeDTO.getEmailDTO());
+		persistentEmploye.setPassword(employeDTO.getPasswordDTO());
+		persistentEmploye.setRole(Role.INGENIEUR);
+		
+		return persistentEmploye;
 	}
 	
 	// Modifier email : http://localhost:8081/SpringMVC/servlet/modifyEmail/1/newemail
@@ -66,7 +81,6 @@ public class RestControlEmploye {
 	}
 
 	// http://localhost:8081/SpringMVC/servlet/ajouterContrat
-	//{"reference":6,"dateDebut":"2020-03-01","salaire":2000,"typeContrat":"CDD"}
 	@PostMapping("/ajouterContrat")
 	@ResponseBody
 	public int ajouterContrat(@RequestBody Contrat contrat) {
@@ -161,7 +175,7 @@ public class RestControlEmploye {
 	}
 
 	
-	//TODO
+
 	public List<Timesheet> getTimesheetsByMissionAndDate(Employe employe, Mission mission, Date dateDebut,
 			Date dateFin) {
 		return iemployeservice.getTimesheetsByMissionAndDate(employe, mission, dateDebut, dateFin);
