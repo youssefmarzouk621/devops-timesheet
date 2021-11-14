@@ -34,10 +34,10 @@ public class ControllerEntrepriseImpl{
 	}
 	public Entreprise getEntrepriseById(int entrepriseId) {
 
-		return ientrepriseservice.getEntrepriseById(1);
+		return ientrepriseservice.getEntrepriseById(entrepriseId);
 	}
 	
-	public int ajouterDepartement(Departement dep) {
+	public Departement ajouterDepartement(Departement dep) {
 		return ientrepriseservice.ajouterDepartement(dep);
 	}
 	
