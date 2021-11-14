@@ -46,7 +46,7 @@ public class ControllerEmployeImpl  {
 
 	private Integer employeIdToBeUpdated; // getter et setter
 
-	final String redirect = "/login.xhtml?faces-redirect=true";
+	final static String redirect = "/login.xhtml?faces-redirect=true";
 	
 	public String doLogin() {
 		String navigateTo = "null";
