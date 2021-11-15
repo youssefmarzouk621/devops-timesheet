@@ -133,6 +133,20 @@ public class DepartementTest {
 		
 		log.info("done Testing Affecter Departement a Employer");
 	}
+	@Test
+	@Order(5)
+	public void testGetAllDepartementsNamesByEntreprise() throws Exception {
+		log.info("5 --------------------------------------------------------------------------------------");
+		log.info("Testing Get all departement names by entreprise");
+		
+		List<String> names = iEntrepriseService.getAllDepartementsNamesByEntreprise(esprit.getId());
+		String json = objectWriter.writeValueAsString(names);
+		log.info(json);
+
+		org.assertj.core.api.Assertions.assertThat(names.get(0).equals("Ressources Humaines"));
+		
+		log.info("done Testing Get all departement names by entreprise");
+	}
 	
 
 }
