@@ -43,6 +43,10 @@ public class Departement implements Serializable {
 	public Departement(String name) {
 		this.name = name;
 	}
+	public Departement(int id,String name) {
+		this.id = id;
+		this.name = name;
+	}
 	
 	public int getId() {
 		return id;
