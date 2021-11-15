@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	environment { 
-        registry = "youssefmarzouk/devops-timesheet" 
+        registry = "ipharmacy/devops-timesheet" 
         registryCredential = 'dockerhub'
         dockerImage = '' 
     }
@@ -11,6 +11,19 @@ pipeline {
 					bat "mvn clean package"
 				}				
 			}
+			           
+            stage('Sonar Analyse'){
+				steps{
+                    bat "mvn sonar:sonar"
+                  }
+            }
+			
+			stage('Deploy'){
+				steps{
+					bat "mvn deploy"
+				}				
+			}
+			
 
 			stage('Building Image'){
 				steps{
@@ -29,16 +42,7 @@ pipeline {
 				}
 			}
 			
-            stage('Sonar Analyse'){
-				steps{
-                    bat "mvn sonar:sonar"
-                  }
-            }
-			stage('Deploy'){
-				steps{
-					bat "mvn deploy"
-				}				
-			}
+ 
 			
 		} 
 }

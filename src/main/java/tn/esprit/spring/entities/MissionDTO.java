@@ -20,10 +20,6 @@ public class MissionDTO{
 		this.departementId = departementId;
 		this.timesheets = timesheets;
 	}
-	
-	public MissionDTO() {
-
-	}
 
 	public int getId() {
 		return id;
