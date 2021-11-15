@@ -99,4 +99,14 @@ public class EntrepriseServiceImpl implements IEntrepriseService{
 		return entrepriseManagedEntity;	
 	}
 
+
+	public Entreprise getLastEntreprise() {
+		List<Entreprise> entreprises = (List<Entreprise>) entrepriseRepoistory.findAll();
+		if(entreprises.isEmpty()) {
+			return null;
+		}
+		
+		return entreprises.get(entreprises.size()-1);
+	}
+
 }
