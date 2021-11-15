@@ -6,29 +6,30 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
-public class EntrepriseServiceImpl implements IEntrepriseService {
+public class EntrepriseServiceImpl implements IEntrepriseService{
 
 	@Autowired
     EntrepriseRepository entrepriseRepoistory;
+	
 	@Autowired
 	DepartementRepository deptRepoistory;
 	
-	public int ajouterEntreprise(Entreprise entreprise) {
-		entrepriseRepoistory.save(entreprise);
-		return entreprise.getId();
+	
+	public Entreprise ajouterEntreprise(Entreprise entreprise) {
+		return entrepriseRepoistory.save(entreprise);
 	}
 
-	public int ajouterDepartement(Departement dep) {
-		deptRepoistory.save(dep);
-		return dep.getId();
+	public Departement ajouterDepartement(Departement dep) {
+		return deptRepoistory.save(dep);
 	}
 	
 	public void affecterDepartementAEntreprise(int depId, int entrepriseId) {
