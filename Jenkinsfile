@@ -6,25 +6,31 @@ pipeline {
         dockerImage = '' 
     }
 	stages{
-			stage('Clean Package'){
+			stage('Clean Install'){
 				steps{
-					bat "mvn clean package"
+					bat "mvn clean install"
 				}				
 			}
-			           
+			stage('Test'){
+				steps{
+					bat "mvn test"
+				}				
+			}
             stage('Sonar Analyse'){
 				steps{
                     bat "mvn sonar:sonar"
                   }
             }
-			
+            stage('packaging'){
+				steps{
+                    bat "mvn package"
+                  }
+            }
 			stage('Deploy'){
 				steps{
 					bat "mvn deploy"
 				}				
 			}
-			
-
 			stage('Building Image'){
 				steps{
 					script{
@@ -32,7 +38,6 @@ pipeline {
 					}
 				}				
 			}
-
 			stage('Deploy Image'){
 				steps{
 					script{
@@ -40,9 +45,6 @@ pipeline {
                         {dockerImage.push()}
 					}
 				}
-			}
-			
- 
-			
+			}	
 		} 
 }

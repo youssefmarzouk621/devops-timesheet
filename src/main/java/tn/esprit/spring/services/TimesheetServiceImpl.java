@@ -34,32 +34,41 @@ public class TimesheetServiceImpl implements ITimesheetService {
 	
 	private static final Logger log = Logger.getLogger(TimesheetServiceImpl.class);
 	
-	public int ajouterMission(Mission mission) {
+	public Mission ajouterMission(Mission mission) {
 		missionRepository.save(mission);
-		return mission.getId();
+		return mission;
 	}
+	
+
     
-	public void affecterMissionADepartement(int missionId, int depId) {
+	public boolean affecterMissionADepartement(int missionId, int depId) {
 		Optional<Mission> missionOptinal = missionRepository.findById(missionId);
 		Optional<Departement> depOptinal = deptRepoistory.findById(depId);
-		
+		log.info("In affecterMissionADepartement");
 
 		
 		if(depOptinal.isPresent()) {
 			Departement dep = depOptinal.get();
-			
+			log.info("Departement is Present :"+dep);
 			if(missionOptinal.isPresent()) {
 				Mission mission = missionOptinal.get();
+				log.info("Mission is Present : "+mission);
 				mission.setDepartement(dep);
 				missionRepository.save(mission);
+				log.info("departement mission a departement");
+				return true;
 			}
+			log.info("Mission not found");
+			return false;
 		}
+		log.info("Departement not found");
+		return false;
 		
 
 
 	}
 
-	public void ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
+	public Timesheet ajouterTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin) {
 		TimesheetPK timesheetPK = new TimesheetPK();
 		timesheetPK.setDateDebut(dateDebut);
 		timesheetPK.setDateFin(dateFin);
@@ -69,12 +78,11 @@ public class TimesheetServiceImpl implements ITimesheetService {
 		Timesheet timesheet = new Timesheet();
 		timesheet.setTimesheetPK(timesheetPK);
 		timesheet.setValide(false); //par defaut non valide
-		timesheetRepository.save(timesheet);
-		
+		return timesheetRepository.save(timesheet);
 	}
 
 	
-	public void validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
+	public boolean validerTimesheet(int missionId, int employeId, Date dateDebut, Date dateFin, int validateurId) {
 		log.info("In valider Timesheet");
 		
 		Optional<Employe> validateurOptional = employeRepository.findById(validateurId);
@@ -83,7 +91,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 			//verifier s'il est un chef de departement (interet des enum)
 			if(!validateur.getRole().equals(Role.CHEF_DEPARTEMENT)){
 				log.info("l'employe doit etre chef de departement pour valider une feuille de temps !");
-				return;
+				return false;
 			}
 			
 			Optional<Mission> missionOptinal = missionRepository.findById(missionId);
@@ -101,7 +109,7 @@ public class TimesheetServiceImpl implements ITimesheetService {
 				
 				if(!chefDeLaMission){
 					log.info("l'employe doit etre chef de departement de la mission en question");
-					return;
+					return false;
 				}
 				
 				TimesheetPK timesheetPK = new TimesheetPK(missionId, employeId, dateDebut, dateFin);
@@ -111,35 +119,30 @@ public class TimesheetServiceImpl implements ITimesheetService {
 				//Comment Lire une date de la base de données
 				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				log.info("dateDebut : " + dateFormat.format(timesheet.getTimesheetPK().getDateDebut()));
+				return true;
 								
 			}
 			
-
-			
+	
 		}
-		
-		
-		
-		
-		
-		
-
-
-		
-
-
-
-		
+		return false;	
 	}
 
 	
 	public List<Mission> findAllMissionByEmployeJPQL(int employeId) {
 		return timesheetRepository.findAllMissionByEmployeJPQL(employeId);
 	}
+	
+	public List<Mission> findAllMissions() {
+		return timesheetRepository.findAllMissions();
+	}
 
 	
 	public List<Employe> getAllEmployeByMission(int missionId) {
 		return timesheetRepository.getAllEmployeByMission(missionId);
 	}
+
+
+
 
 }
