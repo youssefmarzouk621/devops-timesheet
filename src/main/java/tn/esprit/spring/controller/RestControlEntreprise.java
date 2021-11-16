@@ -1,5 +1,6 @@
 package tn.esprit.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.spring.entities.EntrepriseDTO;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
@@ -33,11 +35,20 @@ public class RestControlEntreprise {
 
 	@PostMapping("/ajouterEntreprise")
 	@ResponseBody
-	public int ajouterEntreprise(@RequestBody Entreprise entreprise) {
-		ientrepriseservice.ajouterEntreprise(entreprise);
-		return entreprise.getId();
+	public int ajouterEntreprise(@RequestBody EntrepriseDTO ssiiConsulting) {
+		Entreprise persistentEntreprise = mapIntoPersistentEntreprise(ssiiConsulting);
+		return ientrepriseservice.ajouterEntreprise(persistentEntreprise).getId();
 	}
 	
+	public Entreprise mapIntoPersistentEntreprise(EntrepriseDTO entrepriseDTO) {
+		Entreprise persistentEntreprise = new Entreprise();
+		List<Departement> timesheets = new ArrayList<>();
+		persistentEntreprise.setId(entrepriseDTO.getIdDTO());
+		persistentEntreprise.setName(entrepriseDTO.getNameDTO());
+		persistentEntreprise.setRaisonSocial(entrepriseDTO.getRaisonSocialDTO());
+		persistentEntreprise.setDepartements(timesheets);
+		return persistentEntreprise;
+	}
 	// http://localhost:8081/SpringMVC/servlet/affecterDepartementAEntreprise/1/1
     @PutMapping(value = "/affecterDepartementAEntreprise/{iddept}/{identreprise}") 
 	public void affecterDepartementAEntreprise(@PathVariable("iddept")int depId, @PathVariable("identreprise")int entrepriseId) {
@@ -64,8 +75,8 @@ public class RestControlEntreprise {
 
  	@PostMapping("/ajouterDepartement")
  	@ResponseBody
-	public Departement ajouterDepartement(@RequestBody Departement departement) {
-		return ientrepriseservice.ajouterDepartement(departement);
+	public Departement ajouterDepartement(@RequestBody Departement dep) {
+		return ientrepriseservice.ajouterDepartement(dep);
 	}
 	
  	 // http://localhost:8081/SpringMVC/servlet/getAllDepartementsNamesByEntreprise/1
