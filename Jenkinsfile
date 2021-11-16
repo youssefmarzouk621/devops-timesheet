@@ -1,10 +1,5 @@
 pipeline {
 	agent any
-	environment { 
-        registry = "youssefmarzouk/devops-timesheet" 
-        registryCredential = 'dockerhub'
-        dockerImage = '' 
-    }
 	stages{
 			stage('Clean Package'){
 				steps{
