@@ -19,7 +19,7 @@ pipeline {
                   }
             }
             
-            stage('Packaging'){
+            stage('Test'){
 				steps{
 					bat "mvn test"
 				}				
