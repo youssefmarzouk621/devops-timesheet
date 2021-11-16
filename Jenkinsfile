@@ -6,9 +6,9 @@ pipeline {
         dockerImage = '' 
     }
 	stages{
-			stage('Clean Package'){
+			stage('Clean Install'){
 				steps{
-					bat "mvn clean package"
+					bat "mvn clean install"
 				}				
 			}
 			           
@@ -32,7 +32,6 @@ pipeline {
 					}
 				}				
 			}
-
 			stage('Deploy Image'){
 				steps{
 					script{

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entities.Departement;
+import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
@@ -97,6 +99,16 @@ public class EntrepriseServiceImpl implements IEntrepriseService{
 			entrepriseManagedEntity = entrepriseManagedEntity1.get();
 		}
 		return entrepriseManagedEntity;	
+	}
+
+	
+	public Entreprise getLastEntreprise() {
+		List<Entreprise> entreprises = (List<Entreprise>) entrepriseRepoistory.findAll();
+		if(entreprises.isEmpty()) {
+			return null;
+		}
+		
+		return entreprises.get(entreprises.size()-1);
 	}
 
 }

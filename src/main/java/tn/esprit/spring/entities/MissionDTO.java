@@ -3,63 +3,65 @@ package tn.esprit.spring.entities;
 import java.util.List;
 
 public class MissionDTO{
-	private int id;
+	private int idDTO;
 	
-	private String name;
+	private String nameDTO;
 	
-	private String description;
+	private String descriptionDTO;
 	
-	private int departementId;
+	private int departementIdDTO;
 	
-	private  List<Timesheet> timesheets;
+	private  List<Timesheet> timesheetsDTO;
 
-	public MissionDTO(int id, String name, String description, int departementId,List<Timesheet> timesheets) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.departementId = departementId;
-		this.timesheets = timesheets;
+	
+
+	public MissionDTO(int idDTO,String nameDTO, String descriptionDTO) {
+		this.idDTO = idDTO;
+		this.nameDTO = nameDTO;
+		this.descriptionDTO = descriptionDTO;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdDTO() {
+		return idDTO;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdDTO(int idDTO) {
+		this.idDTO = idDTO;
 	}
 
-	public String getName() {
-		return name;
+	public String getNameDTO() {
+		return nameDTO;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameDTO(String nameDTO) {
+		this.nameDTO = nameDTO;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescriptionDTO() {
+		return descriptionDTO;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescriptionDTO(String descriptionDTO) {
+		this.descriptionDTO = descriptionDTO;
 	}
 
-	public int getDepartementId() {
-		return departementId;
+	public int getDepartementIdDTO() {
+		return departementIdDTO;
 	}
 
-	public void setDepartementId(int departementId) {
-		this.departementId = departementId;
+	public void setDepartementIdDTO(int departementIdDTO) {
+		this.departementIdDTO = departementIdDTO;
 	}
 
-	public List<Timesheet> getTimesheets() {
-		return timesheets;
+	public List<Timesheet> getTimesheetsDTO() {
+		return timesheetsDTO;
 	}
 
-	public void setTimesheets(List<Timesheet> timesheets) {
-		this.timesheets = timesheets;
+	public void setTimesheetsDTO(List<Timesheet> timesheetsDTO) {
+		this.timesheetsDTO = timesheetsDTO;
 	}
+
+	
 	
 	
 	
