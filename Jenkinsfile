@@ -11,7 +11,7 @@ pipeline {
 					bat "mvn clean install"
 				}				
 			}
-			/*stage('Test'){
+			stage('Test'){
 				steps{
 					bat "mvn test"
 				}				
@@ -30,7 +30,7 @@ pipeline {
 				steps{
 					bat "mvn deploy"
 				}				
-			}*/
+			}
 			stage('Building Image'){
 				steps{
 					script{
