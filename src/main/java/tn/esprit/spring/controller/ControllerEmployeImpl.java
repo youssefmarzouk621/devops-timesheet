@@ -46,7 +46,8 @@ public class ControllerEmployeImpl  {
 
 	private Integer employeIdToBeUpdated; // getter et setter
 
-
+	final static String redirect = "/login.xhtml?faces-redirect=true";
+	
 	public String doLogin() {
 		String navigateTo = "null";
 		authenticatedUser=employeService.authenticate(login, password);
@@ -69,7 +70,7 @@ public class ControllerEmployeImpl  {
 	{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 	
-	return "/login.xhtml?faces-redirect=true";
+	return redirect;
 	}
 
 
