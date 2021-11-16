@@ -11,7 +11,6 @@ public interface IEntrepriseService {
 	public Departement ajouterDepartement(Departement dep);
 	void affecterDepartementAEntreprise(int depId, int entrepriseId);
 	List<String> getAllDepartementsNamesByEntreprise(int entrepriseId);
-	Entreprise getLastEntreprise();
 	public void deleteEntrepriseById(int entrepriseId);
 	public void deleteDepartementById(int depId);
 	public Entreprise getEntrepriseById(int entrepriseId);

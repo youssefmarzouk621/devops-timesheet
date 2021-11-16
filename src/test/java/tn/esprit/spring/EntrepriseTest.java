@@ -64,7 +64,6 @@ public class EntrepriseTest {
 	 log.info("Entreprise affiché "+ entreprise);
 	 
 	 org.assertj.core.api.Assertions.assertThat(entreprise.getId()).isEqualTo(1);
-	 org.assertj.core.api.Assertions.assertThat(entreprise.getName()).isEqualTo("Vermeg");
 
 
 	 log.info("Done Testing Affichage Entreprise");
@@ -76,12 +75,8 @@ public class EntrepriseTest {
 	 public void testDeleteEntreprise() throws Exception {
 	 log.info("-------------------------------------------------");
 	 log.info("Testing Delete Entreprise");
-
-	 
 	 Entreprise entreprise = iEntrepriseService.getLastEntreprise();
 
-	 
-	 
 	 if(entreprise == null)
 	 {
 		 org.assertj.core.api.Assertions.assertThat(entreprise).isNull();
@@ -92,11 +87,6 @@ public class EntrepriseTest {
 		 org.assertj.core.api.Assertions.assertThat(entreprise).isNotNull();
 		 iEntrepriseService.deleteEntrepriseById(entreprise.getId());
 	 }
-	 
-	 
-	 
-
-
 	 log.info("Done Testing Delete Entreprise");
 	 log.info("-------------------------------------------------");
 	 }
