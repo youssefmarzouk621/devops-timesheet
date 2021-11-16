@@ -143,8 +143,17 @@ public class DepartementTest {
 		String json = objectWriter.writeValueAsString(names);
 		log.info(json);
 
-		org.assertj.core.api.Assertions.assertThat(names.get(0).equals("Ressources Humaines"));
-		
+		//org.assertj.core.api.Assertions.assertThat(names.get(0).equals("Ressources Humaines"));
+		 if(names == null)
+		 {
+			 org.assertj.core.api.Assertions.assertThat(names).isNull();
+			 log.warn("No departement with this name !");
+		 }
+		 else {
+			 log.info("Departement names  "+ names);
+			 org.assertj.core.api.Assertions.assertThat(names).isNotNull();
+			
+		 }
 		log.info("done Testing Get all departement names by entreprise");
 	}
 	
